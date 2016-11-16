@@ -63,7 +63,7 @@ load_dataset <- function(data_folder, type){
     
     # ------------------------------- load subject -------------------------------
     
-    subject_path <- file.path(folder, paste0("subject_", type, ".txt")) #  "subject_test.txt"
+    subject_path <- file.path(folder, paste0("subject_", type, ".txt")) 
     
     if(!file.exists(subject_path)){
         stop(paste0(subject_path, " doen't exist !"))
@@ -76,7 +76,7 @@ load_dataset <- function(data_folder, type){
     
     # ------------------------------- load X -------------------------------
     
-    X_path <- file.path(folder, paste0("X_", type, ".txt")) # "X_test.txt"
+    X_path <- file.path(folder, paste0("X_", type, ".txt")) 
     
     if(!file.exists(X_path)){
         stop(paste0(X_path, " doen't exist !"))
@@ -89,7 +89,7 @@ load_dataset <- function(data_folder, type){
     
     # ------------------------------- load y -------------------------------
     
-    y_path <- file.path(folder, paste0("y_", type, ".txt") ) # "y_test.txt"
+    y_path <- file.path(folder, paste0("y_", type, ".txt") ) 
     
     if(!file.exists(y_path)){
         stop(paste0(y_path, " doen't exist !"))
@@ -100,15 +100,46 @@ load_dataset <- function(data_folder, type){
     names(y) <- c("value")
     
     
-    # TODO
+    # ------------------------------- load Inertial Signals -------------------------------
     
+    IS_folder <- file.path(folder, "Inertial Signals")
     
+    if(!dir.exists(IS_folder)){
+        stop(paste0(IS_folder, " doen't exist !"))
+    }
     
-    list(subject = subject, X = X, y = y)
+    load_signals_data <- function(file_name) {
+        
+        file_path <- file.path(IS_folder, paste0(file_name, "_", type, ".txt")) 
+        
+        if(!file.exists(file_path)){
+            stop(paste0(file_path, " doen't exist !"))
+        }
+        
+        file_data <- read_csv(file_path, col_names = FALSE, col_types = "n")
+        
+        names(file_data) <- c(file_name)
+        
+        file_data
+    }
+    
+    list(subject = subject,  
+         X = X, 
+         y = y,
+         
+         body_acc_x  = load_signals_data("body_acc_x"),
+         body_acc_y  = load_signals_data("body_acc_y"),
+         body_acc_z  = load_signals_data("body_acc_z"),
+         
+         body_gyro_x = load_signals_data("body_gyro_x"),
+         body_gyro_y = load_signals_data("body_gyro_y"),
+         body_gyro_z = load_signals_data("body_gyro_z"),
+         
+         total_acc_x = load_signals_data("total_acc_x"),
+         total_acc_y = load_signals_data("total_acc_y"),
+         total_acc_z = load_signals_data("total_acc_z")
+         )
 }
-
-
-
 
 
 load_test_dataset <- function(data_folder) {
