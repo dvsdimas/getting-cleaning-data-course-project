@@ -71,7 +71,7 @@ load_dataset <- function(data_folder, type){
     
     subject <- read_csv(subject_path, col_names = FALSE)
     
-    names(subject) <- c("id")
+    names(subject) <- c("subject")
     
     
     # ------------------------------- load X -------------------------------
@@ -84,7 +84,7 @@ load_dataset <- function(data_folder, type){
     
     X <- read_csv(X_path, col_names = FALSE, col_types = "n")
     
-    names(X) <- c("value")
+    names(X) <- c("X")
     
     
     # ------------------------------- load y -------------------------------
@@ -95,9 +95,9 @@ load_dataset <- function(data_folder, type){
         stop(paste0(y_path, " doen't exist !"))
     }
     
-    y <- read_csv(y_path, col_names = FALSE, col_types = "n")
+    y <- read_csv(y_path, col_names = FALSE, col_types = "i")
     
-    names(y) <- c("value")
+    names(y) <- c("y")
     
     
     # ------------------------------- load Inertial Signals -------------------------------
@@ -123,21 +123,21 @@ load_dataset <- function(data_folder, type){
         file_data
     }
     
-    list(subject = subject,  
-         X = X, 
-         y = y,
+    cbind(subject,  
+          X, 
+          y,
          
-         body_acc_x  = load_signals_data("body_acc_x"),
-         body_acc_y  = load_signals_data("body_acc_y"),
-         body_acc_z  = load_signals_data("body_acc_z"),
+          load_signals_data("body_acc_x"),
+          load_signals_data("body_acc_y"),
+          load_signals_data("body_acc_z"),
          
-         body_gyro_x = load_signals_data("body_gyro_x"),
-         body_gyro_y = load_signals_data("body_gyro_y"),
-         body_gyro_z = load_signals_data("body_gyro_z"),
+          load_signals_data("body_gyro_x"),
+          load_signals_data("body_gyro_y"),
+          load_signals_data("body_gyro_z"),
          
-         total_acc_x = load_signals_data("total_acc_x"),
-         total_acc_y = load_signals_data("total_acc_y"),
-         total_acc_z = load_signals_data("total_acc_z")
+          load_signals_data("total_acc_x"),
+          load_signals_data("total_acc_y"),
+          load_signals_data("total_acc_z")
          )
 }
 
