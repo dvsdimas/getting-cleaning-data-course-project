@@ -1,7 +1,7 @@
 require(readr)
 require(dplyr)
 
-if(!exists("load_dataset", mode="function")) source("load.R")
+if(!exists("load_dataset", mode = "function")) source("load.R")
     
 
 # 0) Load data
@@ -15,16 +15,14 @@ if(!dir.exists(data_folder)){
 
 data_description <- load_data_description(data_folder)
 
-test_data <- load_test_dataset(data_folder)
+test_data_list <- load_test_dataset(data_folder)
 
-train_data <- load_train_dataset(data_folder)
+train_data_list <- load_train_dataset(data_folder)
 
 
 # 1) Merges the training and the test sets to create one data set.
 
-data <- rbind(test_data, train_data)
 
-str(data)
 
 
 

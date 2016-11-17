@@ -123,21 +123,21 @@ load_dataset <- function(data_folder, type){
         file_data
     }
     
-    cbind(subject,  
-          X, 
-          y,
+    list(subject = subject,  
+         X = X, 
+         y = y,
          
-          load_signals_data("body_acc_x"),
-          load_signals_data("body_acc_y"),
-          load_signals_data("body_acc_z"),
+         body_acc_x  = load_signals_data("body_acc_x"),
+         body_acc_y  = load_signals_data("body_acc_y"),
+         body_acc_z  = load_signals_data("body_acc_z"),
          
-          load_signals_data("body_gyro_x"),
-          load_signals_data("body_gyro_y"),
-          load_signals_data("body_gyro_z"),
+         body_gyro_x = load_signals_data("body_gyro_x"),
+         body_gyro_y = load_signals_data("body_gyro_y"),
+         body_gyro_z = load_signals_data("body_gyro_z"),
          
-          load_signals_data("total_acc_x"),
-          load_signals_data("total_acc_y"),
-          load_signals_data("total_acc_z")
+         total_acc_x = load_signals_data("total_acc_x"),
+         total_acc_y = load_signals_data("total_acc_y"),
+         total_acc_z = load_signals_data("total_acc_z")
          )
 }
 
