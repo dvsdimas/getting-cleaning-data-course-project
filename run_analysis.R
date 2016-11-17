@@ -22,26 +22,19 @@ train_data_list <- load_train_dataset(data_folder)
 
 # 1) Merges the training and the test sets to create one data set.
 
-Subject <- rbind(train_data_list$subject, test_data_list$subject)
+test_data <- cbind(test_data_list$subject, test_data_list$y, test_data_list$X)
+train_data <- cbind(train_data_list$subject, train_data_list$y, train_data_list$X)
 
-Y <- rbind(train_data_list$y, test_data_list$y)
-
-X <- rbind(train_data_list$X, test_data_list$X)
-
-D <- tbl_df(cbind(X, Subject, Y)) %>%
-        group_by(subject, activitynum)
-
-    
-
-
-
-
-
-
-
+data <- tbl_df(rbind(test_data, train_data))
 
 
 # 2) Extracts only the measurements on the mean and standard deviation for each measurement.
+
+
+# TODO
+
+
+
 
 # 3) Uses descriptive activity names to name the activities in the data set
 
