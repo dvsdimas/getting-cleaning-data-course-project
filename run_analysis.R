@@ -22,7 +22,16 @@ train_data_list <- load_train_dataset(data_folder)
 
 # 1) Merges the training and the test sets to create one data set.
 
+Subject <- rbind(train_data_list$subject, test_data_list$subject)
 
+Y <- rbind(train_data_list$y, test_data_list$y)
+
+X <- rbind(train_data_list$X, test_data_list$X)
+
+D <- tbl_df(cbind(X, Subject, Y)) %>%
+        group_by(subject, activitynum)
+
+    
 
 
 

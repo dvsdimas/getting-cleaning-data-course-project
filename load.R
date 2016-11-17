@@ -84,7 +84,7 @@ load_dataset <- function(data_folder, type){
     
     X <- read_csv(X_path, col_names = FALSE, col_types = "n")
     
-    names(X) <- c("X")
+    names(X) <- c("value")
     
     
     # ------------------------------- load y -------------------------------
@@ -97,7 +97,7 @@ load_dataset <- function(data_folder, type){
     
     y <- read_csv(y_path, col_names = FALSE, col_types = "i")
     
-    names(y) <- c("y")
+    names(y) <- c("activitynum")
     
     
     # ------------------------------- load Inertial Signals -------------------------------
