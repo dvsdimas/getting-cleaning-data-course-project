@@ -1,5 +1,6 @@
 require(readr)
 require(dplyr)
+require(tidyr)
 
 if(!exists("load_dataset", mode = "function")) source("load.R")
     
@@ -40,15 +41,14 @@ fdata <- select(data, keys)
 
 # 3) Uses descriptive activity names to name the activities in the data set
 
+z <- fdata %>%
+    left_join(data_description$activity, by = c("activitynum" = "id")) %>%
+    select(-activitynum)
+
+z$activity <- factor(z$activity)
 
 
 
-
-
-
-
-
-# TODO
 
 
 # 4) Appropriately labels the data set with descriptive variable names.

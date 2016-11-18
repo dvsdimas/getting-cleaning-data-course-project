@@ -20,7 +20,7 @@ load_data_description <- function(data_folder) {
     
     activity <- read_delim(activity_path, delim = " ", col_names = FALSE)
     
-    names(activity) <- c("id", "lable")
+    names(activity) <- c("id", "activity")
     
     
     # ------------------------------- load features -------------------------------
