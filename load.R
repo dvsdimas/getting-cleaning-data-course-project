@@ -82,9 +82,9 @@ load_dataset <- function(data_folder, type){
         stop(paste0(X_path, " doen't exist !"))
     }
     
-    X <- read_csv(X_path, col_names = FALSE, col_types = "n")
+    X <- read.table(X_path)
     
-    names(X) <- c("value")
+    names(X) <- sapply(1:length(colnames(X)), function(x) { paste0("V", x) } )
     
     
     # ------------------------------- load y -------------------------------
