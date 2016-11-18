@@ -32,6 +32,7 @@ data <- tbl_df(rbind(test_data, train_data))
 # 2) Extracts only the measurements on the mean and standard deviation for each measurement.
 
 features <- data_description$features %>%
+                mutate(index = paste0("V", id)) %>%
                 filter(grepl("mean\\(\\)|std\\(\\)", name))
 
 keys <- c(1, 2, sapply(features$id, function(x) { x + 2 } ))
@@ -41,17 +42,23 @@ fdata <- select(data, keys)
 
 # 3) Uses descriptive activity names to name the activities in the data set
 
-z <- fdata %>%
+fdata <- fdata %>%
     left_join(data_description$activity, by = c("activitynum" = "id")) %>%
     select(-activitynum)
 
-z$activity <- factor(z$activity)
-
-
-
+fdata$activity <- factor(fdata$activity)
 
 
 # 4) Appropriately labels the data set with descriptive variable names.
+
+tfdata <- gather(fdata, feature, value, one_of(features$index), -subject, -activity)
+
+
+
+
+
+
+
 
 # 5) From the data set in step 4, creates a second, independent tidy data set with 
 #    the average of each variable for each activity and each subject.
