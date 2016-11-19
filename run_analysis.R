@@ -3,6 +3,13 @@ require(dplyr)
 require(tidyr)
 require(purrr)
 
+# set up your working directory
+
+setwd(getwd())
+
+
+# include functions for loading data in memory, it was made for simplicity
+
 if(!exists("load_dataset", mode = "function")) source("load.R")
     
 
@@ -11,7 +18,24 @@ if(!exists("load_dataset", mode = "function")) source("load.R")
 data_folder <- file.path(getwd(), "UCI HAR Dataset")
 
 if(!dir.exists(data_folder)){
-    stop(paste0(data_folder, " doen't exist !")) # !!!!!!!!!!!!!!!!!!!! TODO download zip
+    
+    data_file <- paste0(data_folder, ".zip")
+    
+    if(!file.exists(data_file)) {
+        
+        download.file("https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip", 
+                      destfile = data_file)
+    
+        if(!file.exists(data_file)){
+            stop(paste0(data_file, " doen't exist !"))     
+        }    
+    }
+    
+    unzip(data_file)
+    
+    if(!dir.exists(data_folder)) {
+        stop(paste0(data_folder, " doen't exist !"))     
+    }
 }
 
 
@@ -63,56 +87,36 @@ tfdata <- fdata %>%
     left_join(features, by = c("feature" = "index")) %>%
     select(-feature, -id)
 
-
-# parse column 'name'
-
 domain <- map_chr(tfdata$name, function(x) { ifelse(grepl("^t", x), "TIME", "FREQUENCY") })
-
-tidy.data <- cbind(tfdata, domain = as.factor(domain))
-    
 
 device <- map_chr(tfdata$name, function(x) { ifelse(grepl("Gyro", x), "GYROSCOPE", "ACCELEROMETER") }) 
     
-tidy.data <- cbind(tidy.data, device = as.factor(device))
-
-
 instrument <- map_chr(tfdata$name, function(x) { ifelse(grepl("GravityAcc", x), "GRAVITY", "BODY") }) 
-
-tidy.data <- cbind(tidy.data, instrument = as.factor(instrument))
-
 
 calculation <- map_chr(tfdata$name, function(x) { ifelse(grepl("mean()", x), "MEAN", "SD") }) 
 
-tidy.data <- cbind(tidy.data, calculation = as.factor(calculation))
-
-
 jerk <- map_lgl(tfdata$name, function(x) { ifelse(grepl("Jerk", x), TRUE, FALSE) }) 
-
-tidy.data <- cbind(tidy.data, jerk = jerk)
-
 
 magnitude <- map_lgl(tfdata$name, function(x) { ifelse(grepl("Mag", x), TRUE, FALSE) }) 
 
-tidy.data <- cbind(tidy.data, magnitude = magnitude)
-
-
 axis <- map_chr(tfdata$name, function(x) { 
     
-    if(grepl("-X$", x)) {
-        "X" 
-    } else if(grepl("-Y$", x)) {
-        "Y"
-    } else if(grepl("-Z$", x)) {
-        "Z"
-    } else {
-        NA
-    }  
-    
+    if(grepl("-X$", x))      "X"  
+    else if(grepl("-Y$", x)) "Y"
+    else if(grepl("-Z$", x)) "Z"
+    else                     NA
+        
     }) 
 
-tidy.data$axis = factor(axis, c(NA, "X", "Y", "Z"), exclude = NULL)
-
-tidy.data <- select(tidy.data, -name) 
+tidy.data <- tfdata %>% 
+             select(-name) %>%
+                cbind(domain = as.factor(domain),
+                      device = as.factor(device),
+                      instrument = as.factor(instrument),
+                      calculation = as.factor(calculation),
+                      jerk = jerk,
+                      magnitude = magnitude,
+                      axis = factor(axis, c(NA, "X", "Y", "Z"), exclude = NULL) )
 
 
 
