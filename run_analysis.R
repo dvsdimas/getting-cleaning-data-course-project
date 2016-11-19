@@ -1,6 +1,7 @@
 require(readr)
 require(dplyr)
 require(tidyr)
+require(purrr)
 
 if(!exists("load_dataset", mode = "function")) source("load.R")
     
@@ -48,19 +49,88 @@ fdata <- fdata %>%
 
 fdata$activity <- factor(fdata$activity)
 
+fdata$subject <- factor(fdata$subject)
+
 
 # 4) Appropriately labels the data set with descriptive variable names.
 
-tfdata <- gather(fdata, feature, value, one_of(features$index), -subject, -activity)
+tfdata <- fdata %>% 
+    gather(feature, value, one_of(features$index), -subject, -activity) %>% 
+    left_join(features, by = c("feature" = "index")) %>%
+    select(-feature, -id)
 
 
+# parse column 'name'
+
+domain <- map_chr(tfdata$name, function(x) { ifelse(grepl("^t", x), "TIME", "FREQUENCY") })
+
+tidy.data <- cbind(tfdata, domain = as.factor(domain))
+    
+
+device <- map_chr(tfdata$name, function(x) { ifelse(grepl("Gyro", x), "GYROSCOPE", "ACCELEROMETER") }) 
+    
+tidy.data <- cbind(tidy.data, device = as.factor(device))
 
 
+instrument <- map_chr(tfdata$name, function(x) { ifelse(grepl("GravityAcc", x), "GRAVITY", "BODY") }) 
+
+tidy.data <- cbind(tidy.data, instrument = as.factor(instrument))
 
 
+calculation <- map_chr(tfdata$name, function(x) { ifelse(grepl("mean()", x), "MEAN", "SD") }) 
+
+tidy.data <- cbind(tidy.data, calculation = as.factor(calculation))
+
+
+jerk <- map_lgl(tfdata$name, function(x) { ifelse(grepl("Jerk", x), TRUE, FALSE) }) 
+
+tidy.data <- cbind(tidy.data, jerk = jerk)
+
+
+magnitude <- map_lgl(tfdata$name, function(x) { ifelse(grepl("Mag", x), TRUE, FALSE) }) 
+
+tidy.data <- cbind(tidy.data, magnitude = magnitude)
+
+
+axis <- map_chr(tfdata$name, function(x) { 
+    
+    if(grepl("-X$", x)) {
+        "X" 
+    } else if(grepl("-Y$", x)) {
+        "Y"
+    } else if(grepl("-Z$", x)) {
+        "Z"
+    } else {
+        NA
+    }  
+    
+    }) 
+
+tidy.data$axis = factor(axis, c(NA, "X", "Y", "Z"), exclude = NULL)
+
+tidy.data <- select(tidy.data, -name)
 
 
 # 5) From the data set in step 4, creates a second, independent tidy data set with 
 #    the average of each variable for each activity and each subject.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
