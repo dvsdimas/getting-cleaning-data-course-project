@@ -10,7 +10,7 @@ Variable list and descriptions for *tidy.data*
 ----------------------------------------------
 
 Variable name |   Type       |  Description                                                      |
---------------|----------------------------------------------------------------------------------|
+--------------|--------------|-------------------------------------------------------------------|
 subject       | Factor w/ 30 | ID the subject who performed the activity for each window sample  |
 activity      | Factor w/ 6  | Activity name                                                     |
 value         | num          | Numeric value of measurement                                      |
@@ -65,7 +65,7 @@ Variable list and descriptions for *tidy.data.avg*
 --------------------------------------------------
 
 Variable name |   Type       |  Description                                                      |
---------------|----------------------------------------------------------------------------------|
+--------------|--------------|-------------------------------------------------------------------|
 subject       | Factor w/ 30 | ID the subject who performed the activity for each window sample  |
 activity      | Factor w/ 6  | Activity name                                                     |
 value         | num          | Numeric value of measurement                                      |
