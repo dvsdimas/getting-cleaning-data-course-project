@@ -51,6 +51,7 @@ summary(tidy.data)
 Save to file
 ------------
 
+Save tidy.data objects to a tab-delimited text file called `tidydata.txt`.
 
 ```{r}
 f <- file.path(output_folder, "tidydata.txt")
@@ -109,6 +110,7 @@ summary(tidy.data.avg)
 Save to file
 ------------
 
+Save tidy.data.avg objects to a tab-delimited text file called `tidydataavg.txt`.
 
 ```{r}
 f <- file.path(output_folder, "tidydataavg.txt")
