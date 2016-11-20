@@ -2,6 +2,7 @@ require(readr)
 require(dplyr)
 require(tidyr)
 require(purrr)
+require(knitr)
 
 # set up your working directory
 
@@ -126,4 +127,11 @@ tidy.data <- tfdata %>%
 tidy.data.avg <- tidy.data %>%
     group_by(subject, activity, domain, device, instrument, jerk, magnitude, calculation, axis) %>%
     summarise(count = n(), average = mean(value))
+
+
+# 6) Make codebook.
+
+knit("makeCodebook.Rmd", output="CodeBook.md", quiet=TRUE)
+
+
 

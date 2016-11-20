@@ -1,0 +1,5 @@
+Codebook
+========
+
+Codebook was generated on `r as.character(Sys.time())` using `r R.version$version.string`
+during the same process that generated the dataset. See `run_analysis.R` for details on dataset creation.
