@@ -16,6 +16,13 @@ if(!exists("load_dataset", mode = "function")) source("load.R")
 
 # 0) Load data
 
+output_folder <- file.path(getwd(), "output")
+
+if(!dir.exists(output_folder)) {
+    dir.create(output_folder)
+}
+
+
 data_folder <- file.path(getwd(), "UCI HAR Dataset")
 
 if(!dir.exists(data_folder)){
