@@ -9,20 +9,19 @@ See `run_analysis.R` for details on dataset creation.
 Variable list and descriptions for *tidy.data*
 ----------------------------------------------
 
--------------------------------------------------------------------------------------------------|
-Variable name |   Type       |  Description                                                      |
---------------|----------------------------------------------------------------------------------|
-subject       | Factor w/ 30 | ID the subject who performed the activity for each window sample  |
-activity      | Factor w/ 6  | Activity name                                                     |
-value         | num          | Numeric value of measurement                                      |
-domain        | Factor w/ 2  | Time domain signal or frequency domain signal (FREQUENCY or TIME) |
-device        | Factor w/ 2  | Measuring instrument (ACCELEROMETER or GYROSCOPE)                 |
-instrument    | Factor w/ 2  | Acceleration signal (BODY or GRAVITY)                             |
-calculation   | Factor w/ 2  | Type of calculation which was made (MEAN or SD)                   |
-jerk          | logi         | Is a jerk signal                                                  |
-magnitude     | logi         | Is a magnitude of the signals calculated using the Euclidean norm |
-axis          | Factor w/ 4  | 3-axial signals in the X, Y and Z directions (X or Y or Z or NA)  |
--------------------------------------------------------------------------------------------------|
+Variable name |   Type       |  Description                                                      
+--------------|-----------------------------
+subject       | Factor w/ 30 | ID the subject who performed the activity for each window sample
+activity      | Factor w/ 6  | Activity name                                                
+value         | num          | Numeric value of measurement                                 
+domain        | Factor w/ 2  | Time domain signal or frequency domain signal (FREQUENCY or TIME)
+device        | Factor w/ 2  | Measuring instrument (ACCELEROMETER or GYROSCOPE)        
+instrument    | Factor w/ 2  | Acceleration signal (BODY or GRAVITY)                    
+calculation   | Factor w/ 2  | Type of calculation which was made (MEAN or SD)              
+jerk          | logi         | Is a jerk signal                                             
+magnitude     | logi         | Is a magnitude of the signals calculated using the Euclidean norm
+axis          | Factor w/ 4  | 3-axial signals in the X, Y and Z directions (X or Y or Z or NA)
+
 
 Dataset structure
 -----------------
@@ -65,22 +64,20 @@ write.table(tidy.data, f, quote = FALSE, sep = "\t", row.names = FALSE)
 Variable list and descriptions for *tidy.data.avg*
 --------------------------------------------------
 
--------------------------------------------------------------------------------------------------|
-Variable name |   Type       |  Description                                                      |
---------------|----------------------------------------------------------------------------------|
-subject       | Factor w/ 30 | ID the subject who performed the activity for each window sample  |
-activity      | Factor w/ 6  | Activity name                                                     |
-value         | num          | Numeric value of measurement                                      |
-domain        | Factor w/ 2  | Time domain signal or frequency domain signal (FREQUENCY or TIME) |
-device        | Factor w/ 2  | Measuring instrument (ACCELEROMETER or GYROSCOPE)                 |
-instrument    | Factor w/ 2  | Acceleration signal (BODY or GRAVITY)                             |
-calculation   | Factor w/ 2  | Type of calculation which was made (MEAN or SD)                   |
-jerk          | logi         | Is a jerk signal                                                  |
-magnitude     | logi         | Is a magnitude of the signals calculated using the Euclidean norm |
-axis          | Factor w/ 4  | 3-axial signals in the X, Y and Z directions (X or Y or Z or NA)  |
-count         | int          | Count of data points used to compute average                      |
-average       | num          | Average of each variable for each activity and each subject       |
--------------------------------------------------------------------------------------------------|
+Variable name |   Type       |  Description                                 
+--------------|----------------------------
+subject       | Factor w/ 30 | ID the subject who performed the activity for each window sample
+activity      | Factor w/ 6  | Activity name                                            
+value         | num          | Numeric value of measurement                     
+domain        | Factor w/ 2  | Time domain signal or frequency domain signal (FREQUENCY or TIME)
+device        | Factor w/ 2  | Measuring instrument (ACCELEROMETER or GYROSCOPE)
+instrument    | Factor w/ 2  | Acceleration signal (BODY or GRAVITY)
+calculation   | Factor w/ 2  | Type of calculation which was made (MEAN or SD)
+jerk          | logi         | Is a jerk signal                 
+magnitude     | logi         | Is a magnitude of the signals calculated using the Euclidean norm
+axis          | Factor w/ 4  | 3-axial signals in the X, Y and Z directions (X or Y or Z or NA)
+count         | int          | Count of data points used to compute average     
+average       | num          | Average of each variable for each activity and each subject
 
 
 Dataset structure
